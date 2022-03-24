@@ -1,0 +1,169 @@
+important folders
+apps
+appsbackend
+api
+
+
+// this is a firebase collable function
+exports.addMessage = functions
+  .runWith({
+    timeoutSeconds: 120,
+    memory: "2GB",
+  })
+  .https.onCall(() => {
+
+    (async () => {
+
+      const browser = await puppeteer.launch({
+        args: ['--no-sandbox']
+      });
+      
+      const page = await browser.newPage();
+
+      await page.goto('http://192.168.0.1/');
+      
+      functions.logger.info("addMessage...", { structuredData: true });
+      return {msg: "Hello from Zuku!"};
+      
+    });
+
+  });
+
+
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   projectId: "zuku-app-47887",
+//   apiKey: "AIzaSyDNr9Fz9GJ6GjJ1oSV4_5R8nlSe1UjfBqM",
+//   authDomain: "zuku-app-47887.firebaseapp.com",
+//   storageBucket: "zuku-app-47887.appspot.com",
+//   messagingSenderId: "290606863129",
+//   appId: "1:290606863129:web:23e776663247198dd6eb88",
+//   measurementId: "G-PMDR3SJKFY"
+// };
+
+// console.log(firebaseConfig);
+
+
+
+
+
+// // Initialize Firebase
+// const firebaseApp = initializeApp(firebaseConfig);
+// console.log(firebaseApp);
+// const analytics = getAnalytics(firebaseApp);
+// console.log(analytics);
+
+// const functions = getFunctions(firebaseApp);
+
+// const helloWorld = httpsCallable(functions, 'helloWorld');
+// console.log(helloWorld());
+
+// const helloWorld = httpsCallable(functions, 'helloWorld');
+// console.log("Ready");
+// helloWorld().then((result) => {
+
+//     console.log("Ok");
+
+//     // Read result of the Cloud Function.
+//     /** @type {any} */
+//     const data = result.data;
+//     const sanitizedMessage = data.text;
+//     console.log(sanitizedMessage);
+
+//   }).catch((error) => {
+
+//     console.log("Error");
+
+//     // Getting the Error details.
+//     const code = error.code;
+//     const message = error.message;
+//     const details = error.details;
+//     console.log(code);
+//     console.log(message);
+//     console.log(details);
+//     // ...
+
+//   });
+
+
+
+// const functions = require("firebase-functions");
+// // https://us-central1-zuku-app-47887.cloudfunctions.net/helloWorld
+// // // Create and Deploy Your First Cloud Functions
+// // // https://firebase.google.com/docs/functions/write-firebase-functions
+
+// const msg = {msg: "Hello from Firebase!"};
+
+// exports.helloWorld = functions.
+//     https.onRequest((request, response) => {
+//       functions.logger.info("Hello logs!", {structuredData: true});
+//       response.send(msg);
+//     });
+// exports.helloWorld = functions.
+//     https.onCall((request, response) => {
+//       functions.logger.info("Hello logs!", {structuredData: true});
+//       response.send(msg);
+//     });
+
+
+
+// exports.helloWorld = functions.https.onCall((data, context) => {
+//   return msg;
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+exports.helloWorld = functions
+    .runWith({
+      timeoutSeconds: 120,
+      memory: "2GB",
+    })  
+    .https.onRequest(async (request, response) => {
+      const browser = await puppeteer.launch(
+        {
+          args: ['--no-sandbox'],
+          headless:true
+        }
+      );
+      const page = await browser.newPage();
+      await page.goto('https://example.com/');
+      const link = await page.waitForXPath("/html/body/div[1]/p[2]/a");
+      functions.logger.info("helloWorld...", { structuredData: true });
+      response.send({ msg: link });
+  });
+
+
+
+// // this is a firebase collable function
+// exports.addMessage = functions
+//   .runWith({
+//     timeoutSeconds: 120,
+//     memory: "2GB",
+//   })
+//   .https.onCall(async () => {
+
+//     const browser = await puppeteer.launch(
+//       {
+//         args: ['--no-sandbox'],
+//         headless:true
+//       }
+//     );
+//     const page = await browser.newPage();
+//     await page.goto("https://example.com/");
+//       const link = await page.waitForXPath("/html/body/div[1]/p[2]/a");
+
+//     functions.logger.info("addMessage...", { structuredData: true });
+//     return { msg: link };
+    
+//   });
